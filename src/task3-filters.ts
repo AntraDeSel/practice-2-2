@@ -10,7 +10,14 @@ import { Book, BookFilter } from "./task1-types";
 // Подсказка: используйте метод массива .some() и приведите строки к нижнему регистру для нечувствительного поиска.
 export const filterByAuthor = (authorName: string): BookFilter => {
   // TODO: напишите код здесь
-  return () => false;
+  return (book:Book) => {
+    for (const author of book.authors) {
+      if (author === authorName) {
+        return true; // Нашли совпадение! Книга подходит.
+      }
+    }
+  return false;
+  }
 };
 
 // TODO 2: Создайте фильтр по минимальному году издания
@@ -20,7 +27,8 @@ export const filterByAuthor = (authorName: string): BookFilter => {
 // Подсказка: не забудьте проверить, что book.year !== undefined, иначе будет ошибка.
 export const filterByMinYear = (year: number): BookFilter => {
   // TODO: напишите код здесь
-  return () => false;
+  return (book:Book)=> (book.year ?? 0) >= year;
+
 };
 
 // TODO 3: Создайте фильтр по минимальному рейтингу
@@ -29,7 +37,7 @@ export const filterByMinYear = (year: number): BookFilter => {
 // Возвращает: функцию типа BookFilter, которая возвращает true, если book.rating >= rating
 export const filterByMinRating = (rating: number): BookFilter => {
   // TODO: напишите код здесь
-  return () => false;
+  return (book: Book) => book.rating !== undefined && book.rating >= rating;
 };
 
 // TODO 4: Примените массив фильтров к массиву книг
@@ -40,5 +48,13 @@ export const filterByMinRating = (rating: number): BookFilter => {
 // Подсказка: используйте метод массива .filter() в сочетании с .every().
 export const applyFilters = (books: Book[], filters: BookFilter[]): Book[] => {
   // TODO: напишите код здесь
-  return [];
+  return books.filter((book) => {
+    // Проверяем каждый фильтр по очереди
+    for (const filter of filters) {
+      if (!filter(book)) {
+        return false; // Хоть один фильтр сказал "нет" — книга не подходит
+      }
+    }
+    return true; // Все фильтры сказали "да"
+  });
 };

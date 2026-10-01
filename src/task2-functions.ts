@@ -12,10 +12,7 @@ import type { Book, Catalog } from './task1-types';
 // Подсказка: используйте оператор расширения (spread) `...`, чтобы создать новый объект, 
 // а не изменять существующий. Ключом должно быть свойство book.id.
 export function addBook(catalog: Catalog, book: Book): Catalog {
-  console.log('функция вызвана')
-  return  {...catalog,
-    [book.id]: book   // TODO: напишите код здесь
-  };
+ 
 }
 
 // TODO 2: Удалите книгу из каталога по id
@@ -26,8 +23,7 @@ export function addBook(catalog: Catalog, book: Book): Catalog {
 //  Подсказка: используйте деструктуризацию объекта с вычисляемым ключом и rest-параметром:
 
 export function removeBook(catalog: Catalog, id: string): Catalog {
-  const { [id]: _, ...restCatalog } = catalog;
-  return restCatalog;
+ 
 }
 
 // TODO 3: Найдите книгу в каталоге по id
@@ -36,5 +32,5 @@ export function removeBook(catalog: Catalog, id: string): Catalog {
 //   - id (string): идентификатор искомой книги
 // Возвращает: объект Book, если книга найдена, или undefined, если её нет
 export function getBook(catalog: Catalog, id: string): Book | undefined {
- return (catalog[id]);
+ 
 }

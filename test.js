@@ -1,6 +1,17 @@
 const user = {
-  name: "Аня",
-  age: 20,
+  id: 1, name: "Аня",
+  role: "admin", age: 25,
 };
+ 
+const { role:roleName, name : userName, ...restOfUser } = user;
+ 
+//console.log(userName);
+//console.log(restOfUser);
 
-console.log(typeof (user) );
+// Обычная деструктуризация: имя известно заранее
+const { name, age } = user;
+
+// Вычисляемое имя: ключ хранится в переменной
+const keyToRemove = "role";
+const { [keyToRemove]: _, ...rest } = user;
+console.log(rest);

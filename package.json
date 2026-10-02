@@ -1,5 +1,5 @@
 {
-  "name": "practice-2-1",
+  "name": "practice-2-2",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -11,10 +11,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-   "devDependencies": {
-    "eslint": "^9.0.0",
+  "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.4.0",
     "vitest": "^5.0.0"
   }

@@ -17,18 +17,9 @@ import { applyFilters } from "./task3-filters";
 // ------------------------------------------------------------
 // TODO 1: Фильтр по названию — такая же фабрика, как в Задании 3
 // ------------------------------------------------------------
-// Должна вернуть BookFilter: функцию, которая для ОДНОЙ книги отвечает
-// на вопрос «содержит ли её название строку query?»
-//
-// Подсказки:
-// - Регистр не важен: сравнивайте book.title.toLowerCase() и query.toLowerCase()
-// - Частичное совпадение: метод .includes(...)
-// - Пустой query содержится в любой строке, поэтому все книги пройдут
-//   фильтр автоматически — отдельный if не нужен
 export const filterByTitle = (query: string): BookFilter => {
-  return (book: Book) => {
-    return false; // <-- TODO 1: ЗАМЕНИТЕ на проверку названия
-  };
+  return (book: Book) => 
+    book.title.toLowerCase().includes(query.toLowerCase());
 };
 
 // ------------------------------------------------------------
@@ -42,10 +33,12 @@ export const filterByTitle = (query: string): BookFilter => {
 //   3. ?? 0: year и rating могут быть undefined, подставляем ноль,
 //      чтобы книги без данных опустились в конец
 export function sortBooks(books: Book[], sortType: "year" | "rating"): Book[] {
+  const copy = [...books]; // Копия, чтобы не мутировать исходный массив
   if (sortType === "year") {
-    return books; // <-- TODO 2: ЗАМЕНИТЕ на копию с сортировкой по году
+    // По убыванию, с обработкой undefined через ?? 0
+    return copy.sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
   }
-  return books; // <-- TODO 3: ЗАМЕНИТЕ на копию с сортировкой по рейтингу
+  return copy.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 }
 
 // ------------------------------------------------------------
@@ -60,5 +53,6 @@ export function filterAndSortBooks(
   query: string,
   sortType: "year" | "rating"
 ): Book[] {
-  return []; // <-- TODO 4: ЗАМЕНИТЕ на композицию applyFilters + sortBooks
+  const filtered = applyFilters(books, [filterByTitle(query)]);
+  return sortBooks(filtered, sortType);
 }
